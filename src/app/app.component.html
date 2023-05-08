@@ -1,0 +1,87 @@
+<div class="login-wrapper">
+  <form class="login" [formGroup]="loginForm" (ngSubmit)="OnSubmit()">
+
+      <section class="title">
+          <h3 class="welcome">Welcome to</h3>
+          AmILab
+          <h5 class="hint">Use your Company ID to sign in or create one now</h5>
+      </section>
+      <div class="login-group">
+        <!--
+          <div class="auth-source select">
+              <select id="login-auth-source-1">
+                  <option>Local Users</option>
+                  <option>Administrator</option>
+              </select>
+          </div>
+          -->
+          <input class="email" type="text" id="login_email" placeholder="email" formControlName="login_email">
+          <input class="password" type="password" id="login_password" placeholder="password" formControlName="login_password">
+        <!--
+        <div class="checkbox">
+              <input type="checkbox" id="rememberme">
+              <label for="rememberme">
+                  Remember me
+              </label>
+          </div>
+
+          <div class="error active">
+              Invalid user name or password
+          </div>
+           -->
+          <button type="submit" class="btn btn-primary" >SIGN IN</button>
+          <!-- <a href="javascript://" class="signup">Sign up for a Company ID</a> -->
+          <button class="btn btn-link" (click)="isModalVisible=true">Sign Up</button>
+      </div>
+  </form>
+</div>
+
+<clr-modal [(clrModalOpen)]="isModalVisible" [clrModalSize]="'lg'" #formSignUp>
+    <h3 class="modal-title">Please, provide your information.</h3>
+    <div class="modal-body">
+        <form clrForm>
+            <div class="alert alert-info" role="alert" *ngIf="created">
+                <div class="alert-items">
+                    <div class="alert-item static">
+                        <div class="alert-icon-wrapper">
+                            <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
+                        </div>
+                        <span class="alert-text">An activation email was sent to you (token {{token}}), in order to continue with the registration process. </span>
+                        <div class="alert-actions">
+                            <button class="btn btn-primary" type="button" (click)="close()">Close</button>
+                            <!-- <a href="..." class="alert-action" >Close</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span class="clr-sr-only">Tabbing through form inputs will trigger validation messages to be read aloud.</span>
+            <clr-input-container>
+              <label>First name:</label>
+              <input clrInput type="text" [(ngModel)]="userToCreate.firstname" name="firstname" placeholder="First name" required />
+              <clr-control-error>We need your first name for legal compliance</clr-control-error>
+            </clr-input-container>
+            <clr-input-container>
+                <label>Last name:</label>
+                <input clrInput type="text" [(ngModel)]="userToCreate.lastname" name="lastname" placeholder="Last name" required />
+                <clr-control-error>We need your last name for legal compliance</clr-control-error>
+            </clr-input-container>
+            <clr-input-container>
+                <label>Email:</label>
+                <input clrInput type="mail" [(ngModel)]="userToCreate.email" name="email" placeholder="Email" required />
+                <clr-control-error>We need your email for legal compliance</clr-control-error>
+            </clr-input-container>
+            <clr-input-container>
+                <label>Password:</label>
+                <input clrInput type="password" [(ngModel)]="userToCreate.password" name="password" placeholder="Password" required />
+                <clr-control-error>We need your password for legal compliance</clr-control-error>
+            </clr-input-container>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit" (click)="signUp(); submitButton.disabled=true" #submitButton>Ok</button>
+                <button class="btn btn-outline" type="button" (click)="isModalVisible=false">Cancel</button>
+            </div>
+
+          </form>
+    </div>
+  </clr-modal>
+<!-- <router-outlet></router-outlet> -->
